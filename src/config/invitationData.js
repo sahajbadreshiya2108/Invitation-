@@ -38,12 +38,12 @@ export const invitationData = {
       detail: "મંગલ ગણેશ પૂજન અને પાવન સીમંત સંસ્કાર વિધિ"
     },
     {
-      time: "બપોરે ૧૦:૦૦ કલાકે",
+      time: "બપોરે ૧૧:૦૦ કલાકે",
       title: "સ્વરૂચિ ભોજન",
       detail: "સર્વે સ્નેહીજનો માટે સ્નેહભર્યું ભોજન પ્રસાદ"
     },
     {
-      time: "બપોરે ૧૨:૩૦ કલાકે",
+      time: "બપોરે ૧૦:૦૦ કલાકે",
       title: "શુભ મિલન & આશિર્વાદ",
       detail: "અમારી વહાલી પુત્રવધુને મંગલ આશીર્વાદ અને સ્નેહમિલન"
     }
@@ -82,7 +82,7 @@ export const invitationData = {
     serviceId: "service_4zguact",
     templateId: "template_qezefyc",
     publicKey: "ZgZMZac0PkyzSZ3k5",
-    toEmail: "akshaypadhara1994@gmail.com"
+    toEmail: "khushimungra89@gmail.com"
   },
   audioUrl: "/audio/invitation.mp3"
 };
