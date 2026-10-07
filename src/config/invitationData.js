@@ -23,7 +23,7 @@ export const invitationData = {
     },
     {
       id: "bhojan",
-      title: "સ્વગૃહિ ભોજન",
+      title: "સ્વરૂચિ ભોજન",
       date: "તા. ૧૨-૧૦-૨૦૨૬",
       day: "સોમવાર",
       time: "બપોરે ૧૧:૦૦ કલાકે",
@@ -44,7 +44,7 @@ export const invitationData = {
     },
     {
       time: "બપોરે ૧૨:૩૦ કલાકે",
-      title: "શુભ મિલન & આશીર્વાદ",
+      title: "શુભ મિલન & આશિર્વાદ",
       detail: "અમારી વહાલી પુત્રવધુને મંગલ આશીર્વાદ અને સ્નેહમિલન"
     }
   ],
@@ -82,7 +82,7 @@ export const invitationData = {
     serviceId: "service_4zguact",
     templateId: "template_qezefyc",
     publicKey: "ZgZMZac0PkyzSZ3k5",
-    toEmail: "khushimungra89@gmail.com"
+    toEmail: "akshaypadhara1994@gmail.com"
   },
   audioUrl: "/audio/invitation.mp3"
 };
