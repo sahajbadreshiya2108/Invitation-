@@ -1,26 +1,166 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --font-playfair: 'Playfair Display', serif;
+  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-script: 'Great Vibes', cursive;
+  --font-montserrat: 'Montserrat', sans-serif;
+  --font-cinzel: 'Cinzel', serif;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --burgundy-deep: #590D22;
+  --wine-red: #800F2F;
+  --burgundy-dark: #3b0614;
+  --burgundy-light: #a4133c;
+  --gold-champagne: #C5A059;
+  --gold-light: #f5deb3;
+  --gold-shimmer: #eac578;
+  --ivory-warm: #F8F0E3;
+  --cream-white: #FFF9EF;
+  --dark-brown: #38251F;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-cormorant), serif;
+  background-color: #1a060d;
+  color: var(--ivory-warm);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Typography Helpers */
+.font-royal {
+  font-family: var(--font-playfair), serif;
+}
+
+.font-cormorant {
+  font-family: var(--font-cormorant), serif;
+}
+
+.font-calligraphy {
+  font-family: var(--font-script), cursive;
+}
+
+.font-cinzel {
+  font-family: var(--font-cinzel), serif;
+}
+
+.font-body {
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+/* Luxury Metallic Gold Text */
+.gold-text-gradient {
+  background: linear-gradient(135deg, #d4af37 0%, #fff0b8 45%, #b8860b 80%, #d4af37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.25);
+}
+
+.gold-text-subtle {
+  background: linear-gradient(135deg, #dfb76c 0%, #f6e8c7 50%, #c5a059 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-border {
+  border-color: #C5A059;
+  box-shadow: 0 0 15px rgba(197, 160, 89, 0.2), inset 0 0 10px rgba(197, 160, 89, 0.1);
+}
+
+.gold-box-glow {
+  box-shadow: 0 10px 30px -5px rgba(197, 160, 89, 0.25), 0 0 15px rgba(89, 13, 34, 0.5);
+}
+
+/* Luxury Paper Texture effect */
+.luxury-paper-cream {
+  background-color: #FFF9EF;
+  background-image: 
+    radial-gradient(#C5A059 0.4px, transparent 0.4px),
+    radial-gradient(#800F2F 0.3px, #FFF9EF 0.3px);
+  background-size: 16px 16px;
+  background-position: 0 0, 8px 8px;
+}
+
+.luxury-paper-burgundy {
+  background: radial-gradient(circle at 50% 30%, #6e102b 0%, #590D22 55%, #380514 100%);
+}
+
+.luxury-paper-wine {
+  background: radial-gradient(circle at center, #800f2f 0%, #590d22 65%, #2a030d 100%);
+}
+
+/* 3D Envelope Transformations */
+.perspective-container {
+  perspective: 1400px;
+  perspective-origin: 50% 50%;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,215,0,0.3) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite linear;
+}
+
+/* Gentle Floating Animation */
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+.animate-float {
+  animation: floatGentle 5s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(197, 160, 89, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(197, 160, 89, 0.6);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2a040e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C5A059;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #dfb76c;
 }
