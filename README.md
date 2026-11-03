@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Daksh & Isha – Premium Interactive Digital Wedding Invitation
 
-## Getting Started
+A luxury, mobile-first, interactive digital wedding invitation website created for the royal wedding of **Daksh & Isha**.
 
-First, run the development server:
+---
+
+## 🌟 Key Features
+
+1. **3D Interactive Envelope Opening**:
+   - Realistic 3D flap opening with CSS 3D transforms & Framer Motion.
+   - Gold-embossed invitation card emerging from inside with realistic depth and drop shadows.
+   - Wax seal and ribbon unlock animation with golden sparkle confetti.
+
+2. **Cinematic Wedding Entrance**:
+   - Royal ivory and silk gold draped curtains.
+   - Sacred Golden Ganesha emblem (`|| श्री गणेशाय नमः ||`).
+   - Gradual entrance animation honoring the Mungara Family elders.
+
+3. **A Beautiful Beginning (Couple Introduction)**:
+   - Romantic introduction with royal monogram medallion (`D & I`).
+   - Elegant typography in *Great Vibes* calligraphy and *Playfair Display*.
+
+4. **Interactive Scratch-to-Reveal Wedding Date**:
+   - HTML5 Canvas interactive scratch surface with real touch and mouse support.
+   - Clears to reveal **1 DECEMBER 2026 • WEDDING CELEBRATIONS** with celebration confetti.
+
+5. **Live Dynamic Wedding Countdown**:
+   - Live counter for **DAYS, HOURS, MINUTES, SECONDS** targeting 1 December 2026, 08:30 AM IST (`Asia/Kolkata` timezone).
+
+6. **Wedding Celebration Events Timeline**:
+   - **1 December 2026**: Mandap Ropan (08:30 AM), Haldi Ceremony (03:00 PM), Evening Rasgarba (08:00 PM).
+   - **2 December 2026**: Hast Melap (11:00 AM) followed by Wedding Lunch.
+   - One-click **Save to Google Calendar** button.
+
+7. **Wedding Destination & Venue**:
+   - **ATM FARM HOUSE**, Ambala-Kenedipur Road, Sasan Road, Ambala, Mendarda, Gujarat – 362260.
+   - Embedded interactive map and direct **GET DIRECTIONS** button linking to [Google Maps](https://maps.app.goo.gl/Ugv69M8jQwEj95eD6).
+
+8. **Elder Blessings & Family Details**:
+   - Honoring Kiritbhai Haribhai Mungara, Rekhaben Kiritbhai Mungara, and the entire Mungara Family.
+
+9. **Final Thank You & Replay**:
+   - Closing blessings and a **REPLAY INVITATION** button that resets the 3D envelope.
+   - Native Web Share API integration.
+
+10. **Auspicious Ambient Audio & Floating Petals**:
+    - Web Audio API synthesizer generating peaceful Indian wedding melodies (Shehnai/Sitar & Tanpura drone).
+    - Canvas-driven drifting rose petals and golden dust particles.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: [Next.js](https://nextjs.org/) (App Router, Turbopack)
+- **UI & Animations**: [Tailwind CSS v4](https://tailwindcss.com/), [Framer Motion](https://www.framer.com/motion/)
+- **Interactive Effects**: HTML5 Canvas, [canvas-confetti](https://www.npmjs.com/package/canvas-confetti)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Typography**: Google Fonts (*Playfair Display*, *Cormorant Garamond*, *Great Vibes*, *Cinzel*, *Montserrat*)
+
+---
+
+## 🚀 Getting Started
+
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/sahajbadreshiya2108/Invitation-.git
+cd Invitation-
+npm install
+```
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To create an optimized production build:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run build
+npm run start
+```
