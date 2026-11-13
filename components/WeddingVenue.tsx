@@ -7,7 +7,8 @@ import { MapPin, Navigation, ExternalLink, Copy, Check } from "lucide-react";
 
 export default function WeddingVenue() {
   const [copied, setCopied] = useState(false);
-  const mapsUrl = "https://maps.google.com/?q=The+View+Gir+Resort+Ambala+Mendarda+Gujarat+362260";
+  // Exact URL provided by user for The View Gir Resort
+  const mapsUrl = "https://www.google.com/maps/place/The+View+Gir+Resort/@21.2713881,70.4746708,700m/data=!3m2!1e3!4b1!4m10!3m9!1s0x3be2adf3c3510065:0x88644b5b7f99e050!5m3!1s2026-12-01!4m1!1i2!8m2!3d21.2713881!4d70.4746708!16s%2Fg%2F11h55n5qs6!5m1!1e2?entry=ttu";
   const addressText = "THE VIEW GIR RESORT, Survey No. 72, Ambala-Kenedipur Road, Sasan Road, Ambala, Mendarda, Gujarat – 362260";
 
   const handleCopyAddress = () => {
@@ -90,8 +91,8 @@ export default function WeddingVenue() {
         <div className="relative w-full h-44 rounded-2xl overflow-hidden border border-[#C5A059] my-5 shadow-inner bg-[#2A0510] group">
           <iframe
             title="The View Gir Resort Google Map"
-            src="https://www.google.com/maps?q=The+View+Gir+Resort+Ambala+Mendarda+Gujarat+362260&output=embed"
-            className="w-full h-full border-0 filter contrast-125 opacity-80 group-hover:opacity-100 transition-opacity"
+            src="https://maps.google.com/maps?q=21.2713881,70.4746708+(The+View+Gir+Resort)&t=k&z=17&ie=UTF8&iwloc=B&output=embed"
+            className="w-full h-full border-0 filter contrast-125 opacity-90 group-hover:opacity-100 transition-opacity"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />

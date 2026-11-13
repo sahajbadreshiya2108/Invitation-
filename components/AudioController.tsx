@@ -9,181 +9,80 @@ interface AudioControllerProps {
 
 export default function AudioController({ autoStartTrigger = false }: AudioControllerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const audioCtxRef = useRef<AudioContext | null>(null);
-  const isPlayingRef = useRef(false);
-  const loopTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // Auspicious Indian Wedding Notes (Raag Yaman / Bilawal Pentatonic Scale in Hz)
-  // Sa, Re, Ga, Ma, Pa, Dha, Ni, Sa'
-  const baseFreq = 220; // A3 root
-  const notes = [
-    baseFreq * (1 / 1),      // Sa (220 Hz)
-    baseFreq * (9 / 8),      // Re (247.5 Hz)
-    baseFreq * (5 / 4),      // Ga (275 Hz)
-    baseFreq * (4 / 3),      // Ma (293.3 Hz)
-    baseFreq * (3 / 2),      // Pa (330 Hz)
-    baseFreq * (5 / 3),      // Dha (366.6 Hz)
-    baseFreq * (15 / 8),     // Ni (412.5 Hz)
-    baseFreq * 2,            // High Sa (440 Hz)
-    baseFreq * 2 * (9 / 8),  // High Re (495 Hz)
-  ];
+  useEffect(() => {
+    // Initialize audio element with uploaded wedding song
+    const audio = new Audio("/wedding-song.m4a");
+    audio.loop = true;
+    audio.preload = "auto";
+    audioRef.current = audio;
 
-  // Traditional Shehnai / Sitar melodic sequence
-  const melodyPattern = [
-    { noteIdx: 0, duration: 1.2 },
-    { noteIdx: 2, duration: 0.8 },
-    { noteIdx: 4, duration: 1.4 },
-    { noteIdx: 5, duration: 0.9 },
-    { noteIdx: 7, duration: 1.8 },
-    { noteIdx: 6, duration: 0.8 },
-    { noteIdx: 4, duration: 1.0 },
-    { noteIdx: 2, duration: 1.4 },
-    { noteIdx: 1, duration: 0.9 },
-    { noteIdx: 0, duration: 2.2 },
-    { noteIdx: 4, duration: 1.2 },
-    { noteIdx: 7, duration: 1.5 },
-    { noteIdx: 8, duration: 2.0 },
-    { noteIdx: 7, duration: 1.4 },
-    { noteIdx: 4, duration: 1.6 },
-  ];
+    const onPlay = () => setIsPlaying(true);
+    const onPause = () => setIsPlaying(false);
 
-  const initAudio = () => {
-    if (!audioCtxRef.current) {
-      const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-      audioCtxRef.current = new AudioCtx();
-    }
-    if (audioCtxRef.current.state === "suspended") {
-      audioCtxRef.current.resume();
-    }
-  };
+    audio.addEventListener("play", onPlay);
+    audio.addEventListener("pause", onPause);
 
-  const playTanpuraDrone = (ctx: AudioContext) => {
-    // Continuous Tanpura drone (Sa + Pa)
-    const droneFreqs = [baseFreq / 2, (baseFreq / 2) * (3 / 2)];
-    droneFreqs.forEach((freq) => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.type = "sawtooth";
-      osc.frequency.setValueAtTime(freq, ctx.currentTime);
-
-      const filter = ctx.createBiquadFilter();
-      filter.type = "lowpass";
-      filter.frequency.setValueAtTime(320, ctx.currentTime);
-
-      gain.gain.setValueAtTime(0.015, ctx.currentTime);
-
-      osc.connect(filter);
-      filter.connect(gain);
-      gain.connect(ctx.destination);
-      osc.start();
-
-      // Stop drone when music stops
-      const checkStop = setInterval(() => {
-        if (!isPlayingRef.current) {
-          gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 1.2);
-          setTimeout(() => {
-            try {
-              osc.stop();
-              osc.disconnect();
-            } catch {}
-          }, 1500);
-          clearInterval(checkStop);
-        }
-      }, 300);
-    });
-  };
-
-  const playMelodyNote = (ctx: AudioContext, freq: number, duration: number) => {
-    if (!isPlayingRef.current) return;
-
-    // Harmonic Shehnai style synthesis: fundamental + overtones
-    const osc1 = ctx.createOscillator();
-    const osc2 = ctx.createOscillator();
-    const gain = ctx.createGain();
-
-    osc1.type = "triangle";
-    osc2.type = "sine";
-
-    osc1.frequency.setValueAtTime(freq, ctx.currentTime);
-    osc2.frequency.setValueAtTime(freq * 2, ctx.currentTime);
-
-    // Warm envelope
-    const now = ctx.currentTime;
-    gain.gain.setValueAtTime(0, now);
-    gain.gain.linearRampToValueAtTime(0.06, now + 0.15);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
-
-    const filter = ctx.createBiquadFilter();
-    filter.type = "lowpass";
-    filter.frequency.setValueAtTime(1400, now);
-
-    osc1.connect(gain);
-    osc2.connect(gain);
-    gain.connect(filter);
-    filter.connect(ctx.destination);
-
-    osc1.start(now);
-    osc2.start(now);
-    osc1.stop(now + duration + 0.1);
-    osc2.stop(now + duration + 0.1);
-  };
-
-  const startMusicLoop = () => {
-    initAudio();
-    const ctx = audioCtxRef.current;
-    if (!ctx) return;
-
-    isPlayingRef.current = true;
-    setIsPlaying(true);
-
-    playTanpuraDrone(ctx);
-
-    let step = 0;
-    const playNext = () => {
-      if (!isPlayingRef.current) return;
-
-      const item = melodyPattern[step % melodyPattern.length];
-      const freq = notes[item.noteIdx];
-      playMelodyNote(ctx, freq, item.duration);
-
-      step++;
-      loopTimeoutRef.current = setTimeout(playNext, item.duration * 1000 * 0.95);
+    return () => {
+      audio.removeEventListener("play", onPlay);
+      audio.removeEventListener("pause", onPause);
+      audio.pause();
+      audioRef.current = null;
     };
+  }, []);
 
-    playNext();
+  const playAudio = () => {
+    if (audioRef.current) {
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+      }).catch(() => {
+        // Autoplay policy prevented playback until user gesture
+      });
+    }
   };
 
-  const stopMusic = () => {
-    isPlayingRef.current = false;
-    setIsPlaying(false);
-    if (loopTimeoutRef.current) {
-      clearTimeout(loopTimeoutRef.current);
+  const pauseAudio = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      setIsPlaying(false);
     }
   };
 
   const toggleMusic = () => {
     if (isPlaying) {
-      stopMusic();
+      pauseAudio();
     } else {
-      startMusicLoop();
+      playAudio();
     }
   };
 
+  // When envelope is opened
   useEffect(() => {
-    if (autoStartTrigger && !isPlayingRef.current) {
-      startMusicLoop();
+    if (autoStartTrigger && audioRef.current && audioRef.current.paused) {
+      playAudio();
     }
   }, [autoStartTrigger]);
 
+  // Global user interaction listener to auto-start song on first tap anywhere
   useEffect(() => {
-    return () => {
-      isPlayingRef.current = false;
-      if (loopTimeoutRef.current) clearTimeout(loopTimeoutRef.current);
-      if (audioCtxRef.current) {
-        try {
-          audioCtxRef.current.close();
-        } catch {}
+    const handleFirstGesture = () => {
+      if (audioRef.current && audioRef.current.paused) {
+        playAudio();
       }
+      window.removeEventListener("pointerdown", handleFirstGesture);
+      window.removeEventListener("touchstart", handleFirstGesture);
+      window.removeEventListener("click", handleFirstGesture);
+    };
+
+    window.addEventListener("pointerdown", handleFirstGesture, { passive: true });
+    window.addEventListener("touchstart", handleFirstGesture, { passive: true });
+    window.addEventListener("click", handleFirstGesture, { passive: true });
+
+    return () => {
+      window.removeEventListener("pointerdown", handleFirstGesture);
+      window.removeEventListener("touchstart", handleFirstGesture);
+      window.removeEventListener("click", handleFirstGesture);
     };
   }, []);
 
@@ -191,8 +90,8 @@ export default function AudioController({ autoStartTrigger = false }: AudioContr
     <div className="fixed top-5 right-5 z-50">
       <button
         onClick={toggleMusic}
-        className="group relative flex items-center gap-2 rounded-full border border-[#C5A059]/60 bg-[#590D22]/85 px-3.5 py-2 text-xs font-cinzel tracking-wider text-[#F8F0E3] shadow-lg backdrop-blur-md transition-all duration-300 hover:border-[#DFB76C] hover:bg-[#800F2F] hover:shadow-[0_0_20px_rgba(197,160,89,0.4)] active:scale-95"
-        aria-label="Toggle Royal Music"
+        className="group relative flex items-center gap-2 rounded-full border border-[#C5A059]/60 bg-[#590D22]/90 px-3.5 py-2 text-xs font-cinzel tracking-wider text-[#F8F0E3] shadow-xl backdrop-blur-md transition-all duration-300 hover:border-[#DFB76C] hover:bg-[#800F2F] hover:shadow-[0_0_20px_rgba(197,160,89,0.5)] active:scale-95"
+        aria-label="Toggle Wedding Music"
       >
         <span className="relative flex h-3 w-3 items-center justify-center">
           {isPlaying ? (
@@ -207,7 +106,7 @@ export default function AudioController({ autoStartTrigger = false }: AudioContr
         </span>
 
         <span className="hidden sm:inline">
-          {isPlaying ? "Music Playing" : "Wedding Music"}
+          {isPlaying ? "Music Playing" : "Wedding Song"}
         </span>
 
         {isPlaying ? (
@@ -218,10 +117,9 @@ export default function AudioController({ autoStartTrigger = false }: AudioContr
 
         {/* Ambient Ring Glow */}
         {isPlaying && (
-          <span className="absolute -inset-1 -z-10 rounded-full bg-[#C5A059]/20 blur-sm animate-pulse" />
+          <span className="absolute -inset-1 -z-10 rounded-full bg-[#DFB76C]/30 blur-sm animate-pulse" />
         )}
       </button>
     </div>
   );
 }
-
