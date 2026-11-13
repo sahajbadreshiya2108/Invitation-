@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { FloralDivider, MandalaRosette, RoyalCornerOrnament } from "./DecorativeSVGs";
+import { FloralDivider, MandalaRosette, RoyalCornerOrnament, DILogo } from "./DecorativeSVGs";
 import { Heart } from "lucide-react";
 
 export default function BeautifulBeginning() {
@@ -65,16 +65,14 @@ export default function BeautifulBeginning() {
 
         {/* Monogram Crest */}
         <div className="my-6 relative flex items-center justify-center">
-          <div className="relative w-24 h-24 rounded-full border border-[#DFB76C]/60 bg-gradient-to-br from-[#800F2F] to-[#2B040F] flex items-center justify-center shadow-xl">
-            <div className="absolute inset-1 rounded-full border border-dashed border-[#DFB76C]/40" />
-            <div className="text-center">
-              <span className="font-calligraphy text-4xl text-[#FFF2B2] block drop-shadow-md">
-                D & I
-              </span>
+          <div className="relative w-28 h-28 rounded-full border-2 border-[#DFB76C] bg-gradient-to-br from-[#800F2F] via-[#590D22] to-[#2B040F] flex items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.8)] p-3">
+            <div className="absolute inset-1.5 rounded-full border border-dashed border-[#FFF2B2]/60" />
+            <div className="relative z-10 w-full h-full flex items-center justify-center">
+              <DILogo className="w-14 h-14 text-[#FFF2B2] drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" />
             </div>
           </div>
           {/* Subtle Outer Glow Ring */}
-          <div className="absolute w-28 h-28 rounded-full border border-[#C5A059]/20 animate-pulse pointer-events-none" />
+          <div className="absolute w-32 h-32 rounded-full border border-[#DFB76C]/30 animate-pulse pointer-events-none" />
         </div>
 
         {/* Description Text */}

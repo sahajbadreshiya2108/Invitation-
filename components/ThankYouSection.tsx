@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { FloralDivider, RoyalCornerOrnament, MandalaRosette } from "./DecorativeSVGs";
+import { FloralDivider, RoyalCornerOrnament, MandalaRosette, DILogo } from "./DecorativeSVGs";
 import { RotateCcw, Share2, Heart, Check } from "lucide-react";
 
 interface ThankYouSectionProps {
@@ -15,8 +15,8 @@ export default function ThankYouSection({ onReplay }: ThankYouSectionProps) {
   const handleShare = () => {
     if (navigator.share) {
       navigator.share({
-        title: "Daksh & Isha Royal Wedding Invitation",
-        text: "You are cordially invited to celebrate the royal wedding of Daksh & Isha on 1 & 2 December 2026 at ATM Farm House, Gujarat.",
+        title: "Daksh & Isha Wedding Invitation",
+        text: "You are cordially invited to celebrate the wedding of Daksh & Isha on 1 & 2 December 2026 at The View Gir Resort, Gujarat.",
         url: window.location.href,
       }).catch(() => {});
     } else {
@@ -91,7 +91,10 @@ export default function ThankYouSection({ onReplay }: ThankYouSectionProps) {
               WITH LOVE AND BLESSINGS
             </span>
 
-            <div className="my-3">
+            <div className="my-3 flex flex-col items-center">
+              <div className="w-16 h-16 rounded-full bg-[#F8F0E3] border border-[#C5A059] p-2 flex items-center justify-center mb-2 shadow-inner">
+                <DILogo className="w-full h-full text-[#800F2F]" />
+              </div>
               <h1 className="font-calligraphy text-4xl sm:text-5xl text-[#590D22] drop-shadow-sm">
                 Daksh & Isha
               </h1>

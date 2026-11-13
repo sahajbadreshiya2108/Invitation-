@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { GaneshaIcon, RoyalCornerOrnament, MandalaRosette } from "./DecorativeSVGs";
+import { GaneshaIcon, RoyalCornerOrnament, MandalaRosette, DILogo } from "./DecorativeSVGs";
 import confetti from "canvas-confetti";
 import { Sparkles, ChevronDown } from "lucide-react";
 
@@ -71,7 +71,7 @@ export default function EnvelopeIntro({ onOpen, isOpen }: EnvelopeIntroProps) {
         >
           <span className="text-[11px] sm:text-xs font-cinzel tracking-[0.28em] text-[#DFB76C] uppercase font-semibold flex items-center justify-center gap-2">
             <Sparkles className="w-3.5 h-3.5 text-[#DFB76C] animate-pulse" />
-            Royal Wedding Invitation
+            WEDDING INVITATION
             <Sparkles className="w-3.5 h-3.5 text-[#DFB76C] animate-pulse" />
           </span>
         </motion.div>
@@ -194,7 +194,7 @@ export default function EnvelopeIntro({ onOpen, isOpen }: EnvelopeIntroProps) {
                   1 & 2 December 2026
                 </span>
                 <span className="text-[9px] font-body text-[#38251F]/80 tracking-wider">
-                  ATM Farm House • Gujarat
+                  The View Gir Resort
                 </span>
               </div>
             </motion.div>
@@ -284,22 +284,17 @@ export default function EnvelopeIntro({ onOpen, isOpen }: EnvelopeIntroProps) {
                       <span className="text-[10px] font-cinzel tracking-[0.28em] text-[#DFB76C] font-semibold uppercase">
                         YOU&apos;RE INVITED
                       </span>
-                      <span className="font-calligraphy text-2xl text-[#FFF9EF] drop-shadow">
-                        Daksh & Isha
-                      </span>
                     </div>
                   </div>
 
                   {/* Pulsing Tap-To-Open Wax Seal Emblem */}
                   <div className="relative -mt-4 flex flex-col items-center">
-                    <div className="relative flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-br from-[#800F2F] via-[#590D22] to-[#2B030D] border-2 border-[#DFB76C] shadow-[0_10px_25px_rgba(0,0,0,0.9)] animate-pulse-glow">
+                    <div className="relative flex items-center justify-center w-22 h-22 rounded-full bg-gradient-to-br from-[#800F2F] via-[#590D22] to-[#2B030D] border-2 border-[#DFB76C] shadow-[0_10px_25px_rgba(0,0,0,0.9)] animate-pulse-glow">
                       <div className="absolute inset-1 rounded-full border border-dashed border-[#FFF2B2]/60" />
                       
-                      <div className="text-center px-1">
-                        <span className="font-calligraphy text-xl text-[#FFF2B2] block leading-none">
-                          D & I
-                        </span>
-                        <span className="text-[7.5px] font-cinzel tracking-widest text-[#FFF9EF] uppercase block mt-1 font-bold">
+                      <div className="text-center px-2 flex flex-col items-center justify-center">
+                        <DILogo className="w-10 h-10 text-[#FFF2B2] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]" />
+                        <span className="text-[7px] font-cinzel tracking-widest text-[#FFF9EF] uppercase block mt-0.5 font-bold">
                           TAP TO OPEN
                         </span>
                       </div>

@@ -14,8 +14,8 @@ interface TimeLeft {
 }
 
 export default function CountdownTimer() {
-  // Target: 1 December 2026, 08:30 AM IST (UTC: 2026-12-01T03:00:00Z)
-  const targetTimestamp = Date.UTC(2026, 11, 1, 3, 0, 0);
+  // Target: 2 December 2026, 10:30 AM IST (UTC: 2026-12-02T05:00:00Z)
+  const targetTimestamp = Date.UTC(2026, 11, 2, 5, 0, 0);
 
   const calculateTimeLeft = (): TimeLeft => {
     const now = new Date().getTime();
@@ -142,7 +142,7 @@ export default function CountdownTimer() {
 
         {/* Target Timezone Badge */}
         <div className="mt-4 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#2B040F] border border-[#C5A059]/40 text-[#DFB76C] text-[10px] font-cinzel tracking-wider">
-          <span>✦ 1 December 2026 • 08:30 AM IST (Asia/Kolkata) ✦</span>
+          <span>✦ 2 December 2026 • 10:30 AM IST (Asia/Kolkata) ✦</span>
         </div>
       </motion.div>
     </section>

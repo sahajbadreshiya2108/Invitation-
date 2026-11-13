@@ -236,7 +236,7 @@ export default function ScratchRevealDate() {
               </span>
 
               <h3 className="font-royal text-3xl sm:text-4xl font-extrabold tracking-wider text-[#FFF9EF] drop-shadow-[0_2px_10px_rgba(0,0,0,0.6)] my-0.5">
-                1 DECEMBER 2026
+                2 DECEMBER 2026
               </h3>
 
               <div className="h-[1px] w-28 bg-gradient-to-r from-transparent via-[#DFB76C] to-transparent my-1.5" />
@@ -245,8 +245,8 @@ export default function ScratchRevealDate() {
                 WEDDING CELEBRATIONS
               </p>
 
-              <span className="text-[9.5px] font-body text-[#FFF9EF]/80 tracking-widest mt-1">
-                ATM FARM HOUSE • GUJARAT
+              <span className="text-[9.5px] font-body text-[#FFF9EF]/80 tracking-widest mt-1 uppercase">
+                The View Gir Resort
               </span>
             </div>
           </div>

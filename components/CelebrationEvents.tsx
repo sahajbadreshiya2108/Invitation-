@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FloralDivider, RoyalCornerOrnament, MandalaRosette } from "./DecorativeSVGs";
-import { Calendar, Clock, Sun, Sparkles, Moon, HeartHandshake, Utensils } from "lucide-react";
+import { Calendar, Clock, Sun, Sparkles, Moon, HeartHandshake, Utensils, Users } from "lucide-react";
 
 export default function CelebrationEvents() {
   const day1Events = [
@@ -32,12 +32,25 @@ export default function CelebrationEvents() {
 
   const day2Events = [
     {
-      time: "11:00 AM",
-      title: "HAST MELAP",
+      time: "EARLY MORNING",
+      title: "JAAN AAGMAN",
+      subtitle: "Welcoming the Baraat",
+      desc: "Warm traditional welcome of the groom's procession with joyful celebration and blessings.",
+      icon: Users,
+    },
+    {
+      time: "10:30 AM",
+      title: "HAST MELAP (MANDAP)",
       subtitle: "Sacred Wedding Rituals",
       desc: "The sacred union of hands and souls before the holy fire with Vedic mantras.",
       icon: HeartHandshake,
-      extra: "FOLLOWED BY WEDDING LUNCH",
+    },
+    {
+      time: "11:30 AM ONWARDS",
+      title: "LUNCH (BHOJAN SAMARAMBH)",
+      subtitle: "Royal Wedding Feast",
+      desc: "A sumptuous celebratory lunch served with warmth, love, and traditional delicacies.",
+      icon: Utensils,
     },
   ];
 
@@ -45,9 +58,9 @@ export default function CelebrationEvents() {
   const handleAddToCalendar = () => {
     const title = encodeURIComponent("Daksh & Isha Royal Wedding Celebrations");
     const details = encodeURIComponent(
-      "Royal Wedding Celebrations of Daksh & Isha.\n\nDec 1: Mandap Ropan (08:30 AM), Haldi Ceremony (03:00 PM), Evening Rasgarba (08:00 PM)\nDec 2: Hast Melap (11:00 AM) followed by Wedding Lunch.\n\nVenue: ATM Farm House, Gujarat."
+      "Wedding Celebrations of Daksh & Isha.\n\nDec 1: Mandap Ropan (08:30 AM), Haldi Ceremony (03:00 PM), Evening Rasgarba (08:00 PM)\nDec 2: Jaan Aagman (Early Morning), Hast Melap (10:30 AM), Lunch / Bhojan Samarambh (11:30 AM Onwards).\n\nVenue: The View Gir Resort, Ambala, Mendarda, Gujarat."
     );
-    const location = encodeURIComponent("ATM Farm House, Ambala-Kenedipur Road, Sasan Road, Ambala, Mendarda, Gujarat – 362260");
+    const location = encodeURIComponent("The View Gir Resort, Survey No. 72, Ambala-Kenedipur Road, Sasan Road, Ambala, Mendarda, Gujarat – 362260");
     const dates = "20261201T030000Z/20261202T120000Z";
 
     const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&dates=${dates}`;
@@ -235,19 +248,6 @@ export default function CelebrationEvents() {
                       <p className="font-cormorant text-sm sm:text-base text-[#38251F]/90 mt-1 leading-snug">
                         {evt.desc}
                       </p>
-
-                      {/* FOLLOWED BY WEDDING LUNCH */}
-                      <div className="mt-4 pt-3 border-t border-[#C5A059]/40 flex items-center gap-2 bg-[#F8F0E3] p-2.5 rounded-xl border border-dashed border-[#C5A059]">
-                        <Utensils className="w-4 h-4 text-[#800F2F] shrink-0" />
-                        <div>
-                          <span className="text-[10px] font-cinzel font-semibold tracking-widest text-[#8C6A28] uppercase block">
-                            FOLLOWED BY
-                          </span>
-                          <span className="text-xs font-cinzel font-bold tracking-[0.2em] text-[#590D22] uppercase">
-                            WEDDING LUNCH
-                          </span>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>

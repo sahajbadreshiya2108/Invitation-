@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import EnvelopeIntro from "@/components/EnvelopeIntro";
 import WeddingEntrance from "@/components/WeddingEntrance";
 import BeautifulBeginning from "@/components/BeautifulBeginning";
@@ -17,6 +17,14 @@ import ScrollProgress from "@/components/ScrollProgress";
 export default function Home() {
   const [isEnvelopeOpened, setIsEnvelopeOpened] = useState(false);
   const [envelopeKey, setEnvelopeKey] = useState(0);
+
+  // Always reset scroll to top on page reload / load
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleOpenEnvelope = () => {
     setIsEnvelopeOpened(true);

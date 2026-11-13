@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { GaneshaIcon, RoyalCornerOrnament, FloralDivider } from "./DecorativeSVGs";
+import { GaneshaIcon, RoyalCornerOrnament, FloralDivider, DILogo } from "./DecorativeSVGs";
 
 export default function WeddingEntrance() {
   return (
@@ -94,7 +94,7 @@ export default function WeddingEntrance() {
             </p>
           </motion.div>
 
-          {/* Grand Couple Typography */}
+          {/* Grand Couple Typography & Monogram */}
           <motion.div
             initial={{ opacity: 0, scale: 0.92 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -102,6 +102,14 @@ export default function WeddingEntrance() {
             transition={{ duration: 0.9, delay: 0.5 }}
             className="my-5 flex flex-col items-center"
           >
+            {/* Elegant D & I Monogram Emblem */}
+            <div className="relative mb-3 flex items-center justify-center">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#FFFDF9] via-[#F8F0E3] to-[#F1E4CD] border-2 border-[#C5A059] shadow-md flex items-center justify-center p-2.5">
+                <DILogo className="w-full h-full text-[#800F2F]" />
+              </div>
+              <div className="absolute -inset-1 rounded-full border border-dashed border-[#DFB76C]/60 pointer-events-none" />
+            </div>
+
             <h1 className="font-calligraphy text-5xl sm:text-6xl text-[#590D22] drop-shadow-sm tracking-wide">
               Daksh
             </h1>
@@ -147,7 +155,7 @@ export default function WeddingEntrance() {
           >
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#C5A059]/50 bg-[#F8F0E3] shadow-inner text-[#800F2F] text-[10px] font-cinzel tracking-widest uppercase">
               <span>✦</span>
-              <span>Royal Union • Gujarat</span>
+              <span>The View Gir Resort</span>
               <span>✦</span>
             </div>
           </motion.div>

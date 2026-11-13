@@ -7,8 +7,8 @@ import { MapPin, Navigation, ExternalLink, Copy, Check } from "lucide-react";
 
 export default function WeddingVenue() {
   const [copied, setCopied] = useState(false);
-  const mapsUrl = "https://maps.app.goo.gl/Ugv69M8jQwEj95eD6";
-  const addressText = "ATM FARM HOUSE, Ambala-Kenedipur Road, Sasan Road, Ambala, Mendarda, Gujarat – 362260";
+  const mapsUrl = "https://maps.google.com/?q=The+View+Gir+Resort+Ambala+Mendarda+Gujarat+362260";
+  const addressText = "THE VIEW GIR RESORT, Survey No. 72, Ambala-Kenedipur Road, Sasan Road, Ambala, Mendarda, Gujarat – 362260";
 
   const handleCopyAddress = () => {
     navigator.clipboard.writeText(addressText);
@@ -70,8 +70,8 @@ export default function WeddingVenue() {
             <Navigation className="w-7 h-7 text-[#FFF2B2]" />
           </div>
 
-          <h3 className="font-royal text-2xl sm:text-3xl font-extrabold tracking-wide text-[#FFF2B2] drop-shadow-md">
-            ATM FARM HOUSE
+          <h3 className="font-royal text-2xl sm:text-3xl font-extrabold tracking-wide text-[#FFF2B2] drop-shadow-md uppercase">
+            THE VIEW GIR RESORT
           </h3>
 
           <div className="h-[1px] w-28 bg-gradient-to-r from-transparent via-[#DFB76C] to-transparent my-2" />
@@ -79,19 +79,18 @@ export default function WeddingVenue() {
 
         {/* Address Lines */}
         <div className="space-y-1 font-cormorant text-base sm:text-lg text-[#F8F0E3]/95 leading-relaxed px-3 my-4">
-          <p className="font-medium tracking-wide">Ambala-Kenedipur Road,</p>
-          <p className="font-medium tracking-wide">Sasan Road,</p>
-          <p className="font-medium tracking-wide">Ambala, Mendarda,</p>
+          <p className="font-medium tracking-wide">Survey No. 72, Ambala-Kenedipur Road,</p>
+          <p className="font-medium tracking-wide">Sasan Road, Ambala, Mendarda,</p>
           <p className="font-bold tracking-wider text-[#DFB76C]">
-            Gujarat – 362260.
+            Gujarat – 362260
           </p>
         </div>
 
         {/* Interactive Map Embed / Preview Card */}
         <div className="relative w-full h-44 rounded-2xl overflow-hidden border border-[#C5A059] my-5 shadow-inner bg-[#2A0510] group">
           <iframe
-            title="ATM Farm House Google Map"
-            src="https://www.google.com/maps?q=Ambala-Kenedipur+Road,+Sasan+Road,+Ambala,+Mendarda,+Gujarat+362260&output=embed"
+            title="The View Gir Resort Google Map"
+            src="https://www.google.com/maps?q=The+View+Gir+Resort+Ambala+Mendarda+Gujarat+362260&output=embed"
             className="w-full h-full border-0 filter contrast-125 opacity-80 group-hover:opacity-100 transition-opacity"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
