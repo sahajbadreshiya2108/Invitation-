@@ -8,161 +8,114 @@ export default function WeddingEntrance() {
   return (
     <section
       id="wedding-entrance"
-      className="relative min-h-screen w-full flex items-center justify-center py-20 px-4 overflow-hidden bg-gradient-to-b from-[#20040c] via-[#350715] to-[#20040c]"
+      className="relative min-h-screen w-full flex items-center justify-center py-16 px-3 sm:px-4 overflow-hidden bg-gradient-to-b from-[#180309] via-[#280511] to-[#140207]"
     >
-      {/* Royal Draped Curtains Visual Framing (Ivory & Gold Sheen) */}
-      <div className="absolute top-0 inset-x-0 h-28 pointer-events-none flex justify-between z-10 opacity-75">
-        {/* Left Curtain Swag */}
-        <div className="w-1/2 h-full bg-gradient-to-b from-[#FFF9EF]/20 via-[#F8F0E3]/10 to-transparent [clip-path:polygon(0_0,100%_0,85%_75%,50%_100%,0_80%)] border-b border-[#C5A059]/40" />
-        {/* Right Curtain Swag */}
-        <div className="w-1/2 h-full bg-gradient-to-b from-[#FFF9EF]/20 via-[#F8F0E3]/10 to-transparent [clip-path:polygon(0_0,100%_0,100%_80%,50%_100%,15%_75%)] border-b border-[#C5A059]/40" />
-      </div>
+      {/* Soft Ambient Radiance */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[550px] h-[340px] sm:h-[550px] bg-[#800F2F]/20 rounded-full blur-[120px] pointer-events-none" />
 
-      {/* Golden Curtain Tassels Accent */}
-      <div className="absolute top-1 left-4 z-20 pointer-events-none w-6 h-16 border-l-2 border-b-2 border-[#DFB76C]/60 rounded-bl-xl opacity-60" />
-      <div className="absolute top-1 right-4 z-20 pointer-events-none w-6 h-16 border-r-2 border-b-2 border-[#DFB76C]/60 rounded-br-xl opacity-60" />
-
-      {/* Radial Glow Lighting */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[550px] h-[340px] sm:h-[550px] bg-[#800F2F]/25 rounded-full blur-[120px] pointer-events-none" />
-
-      {/* Main Luxury Station Card Frame */}
+      {/* Main Luxury Station Card Frame with Full Page Pheras Art Background */}
       <motion.div
         initial={{ opacity: 0, y: 35 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.2 }}
         transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-        className="relative z-20 w-full max-w-[440px] rounded-3xl bg-[#FFF9EF] text-[#38251F] p-7 sm:p-9 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.85)] border-2 border-[#C5A059] overflow-hidden"
+        className="relative z-20 w-full max-w-[400px] sm:max-w-[440px] aspect-[4/6.4] max-h-[680px] rounded-3xl border-2 border-[#D4AF37] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)] overflow-hidden flex flex-col justify-between p-6 sm:p-8"
       >
-        {/* Paper Texture Subtle Dot Pattern */}
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#800F2F_1px,transparent_1px)] [background-size:12px_12px] pointer-events-none" />
+        {/* Full Original Wedding Pheras & Palace Lanterns Art as Complete Background */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: "url('/feras-wedding-bg.jpg')",
+          }}
+        />
 
-        {/* Inner Gold Foil Frame Lines */}
-        <div className="absolute inset-2.5 rounded-2xl border border-[#C5A059]/80 pointer-events-none" />
-        <div className="absolute inset-4 rounded-xl border border-dashed border-[#DFB76C]/50 pointer-events-none" />
+        {/* Soft Gold & Ivory Lighting Gradient for readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/50 to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+
+        {/* Golden Ornamental Frame Borders */}
+        <div className="absolute inset-2.5 rounded-2xl border border-[#D4AF37]/80 pointer-events-none" />
+        <div className="absolute inset-3.5 rounded-xl border border-dashed border-[#800F2F]/40 pointer-events-none" />
 
         {/* Four Royal Corners */}
         <div className="absolute top-2 left-2 pointer-events-none opacity-85">
-          <RoyalCornerOrnament className="w-12 h-12" />
+          <RoyalCornerOrnament className="w-10 h-10 text-[#D4AF37]" />
         </div>
         <div className="absolute top-2 right-2 pointer-events-none opacity-85 rotate-90">
-          <RoyalCornerOrnament className="w-12 h-12" />
+          <RoyalCornerOrnament className="w-10 h-10 text-[#D4AF37]" />
         </div>
         <div className="absolute bottom-2 left-2 pointer-events-none opacity-85 -rotate-90">
-          <RoyalCornerOrnament className="w-12 h-12" />
+          <RoyalCornerOrnament className="w-10 h-10 text-[#D4AF37]" />
         </div>
         <div className="absolute bottom-2 right-2 pointer-events-none opacity-85 rotate-180">
-          <RoyalCornerOrnament className="w-12 h-12" />
+          <RoyalCornerOrnament className="w-10 h-10 text-[#D4AF37]" />
         </div>
 
-        {/* Card Content */}
-        <div className="relative z-10 flex flex-col items-center text-center">
+        {/* Top Section Content (placed nicely under the palace arch) */}
+        <div className="relative z-10 flex flex-col items-center text-center mt-3">
           
-          {/* Shree Ganesh Invocation */}
+          {/* Shubh Vivah & Ganesha Invocation */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.85 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: -10 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="flex flex-col items-center"
+            transition={{ duration: 0.8 }}
+            className="flex flex-col items-center mb-1"
           >
-            <div className="p-2.5 rounded-full bg-[#590D22]/5 border border-[#C5A059]/40 mb-2">
-              <GaneshaIcon className="w-14 h-14" />
+            <div className="px-3.5 py-0.5 rounded-full bg-[#590D22]/90 border border-[#D4AF37] shadow-md mb-2">
+              <span className="text-[11px] font-royal font-bold tracking-[0.22em] text-[#FFF4D4] uppercase">
+                ॥ शुभ विवाह ॥
+              </span>
             </div>
-            <h3 className="font-cinzel text-xs sm:text-sm font-bold tracking-[0.25em] text-[#800F2F] uppercase">
-              || श्री गणेशाय नमः ||
-            </h3>
-            <span className="font-cinzel text-[10px] tracking-[0.28em] text-[#9E782F] uppercase mt-0.5">
-              SHREE GANESHAY NAMAH
+            
+            <GaneshaIcon className="w-10 h-10 drop-shadow-sm text-[#D4AF37]" />
+            <span className="font-royal text-[11px] sm:text-xs tracking-[0.25em] text-[#800F2F] font-bold mt-1 uppercase">
+              || ॐ श्री गणेशाय नमः ||
             </span>
           </motion.div>
 
-          <FloralDivider className="my-4" />
-
           {/* Invitation Honorifics */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.35 }}
-            className="space-y-1"
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="space-y-0.5 my-1.5"
           >
-            <p className="font-cinzel text-[11px] sm:text-xs tracking-[0.22em] text-[#800F2F] font-semibold uppercase">
-              YOU ARE CORDIALLY INVITED
-            </p>
-            <p className="font-cinzel text-[10px] tracking-[0.25em] text-[#590D22]/75 uppercase">
-              TO CELEBRATE THE WEDDING OF
+            <p className="font-cinzel text-[10px] sm:text-[11px] tracking-[0.2em] text-[#800F2F] font-bold uppercase">
+              YOU ARE CORDIALLY INVITED TO CELEBRATE
             </p>
           </motion.div>
 
-          {/* Grand Couple Typography & Monogram */}
+          {/* Couple Names (Primary Display 2 of 2) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.92 }}
+            initial={{ opacity: 0, scale: 0.94 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.9, delay: 0.5 }}
-            className="my-5 flex flex-col items-center"
+            transition={{ duration: 0.9, delay: 0.35 }}
+            className="my-1.5 flex flex-col items-center bg-[#FFF9EF]/85 px-6 py-2.5 rounded-2xl border border-[#D4AF37]/60 shadow-lg backdrop-blur-xs"
           >
-            {/* Elegant D & I Monogram Emblem */}
-            <div className="relative mb-3 flex items-center justify-center">
-              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#FFFDF9] via-[#F8F0E3] to-[#F1E4CD] border-2 border-[#C5A059] shadow-md flex items-center justify-center p-2.5">
-                <DILogo className="w-full h-full text-[#800F2F]" />
-              </div>
-              <div className="absolute -inset-1 rounded-full border border-dashed border-[#DFB76C]/60 pointer-events-none" />
-            </div>
-
-            <h1 className="font-calligraphy text-5xl sm:text-6xl text-[#590D22] drop-shadow-sm tracking-wide">
-              Daksh
+            <h1 className="font-calligraphy text-4xl sm:text-5xl text-[#590D22] drop-shadow-sm leading-tight">
+              Daksh & Isha
             </h1>
-            
-            <div className="flex items-center justify-center gap-3 my-1">
-              <div className="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#C5A059]" />
-              <span className="font-calligraphy text-3xl sm:text-4xl text-[#C5A059] leading-none">
-                &
-              </span>
-              <div className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#C5A059]" />
-            </div>
-
-            <h1 className="font-calligraphy text-5xl sm:text-6xl text-[#590D22] drop-shadow-sm tracking-wide">
-              Isha
-            </h1>
-          </motion.div>
-
-          <FloralDivider className="my-3" />
-
-          {/* Blessings & Family */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.65 }}
-            className="space-y-1.5"
-          >
-            <p className="font-cinzel text-[10px] tracking-[0.25em] text-[#9E782F] uppercase font-medium">
-              WITH THE BLESSINGS OF OUR ELDERS
-            </p>
-            <p className="font-royal text-base sm:text-lg font-bold tracking-[0.18em] text-[#590D22] uppercase">
+            <div className="h-[1px] w-20 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent my-1" />
+            <p className="font-cinzel text-[10px] tracking-[0.25em] text-[#8C6A28] uppercase font-semibold">
               MUNGARA FAMILY
             </p>
           </motion.div>
 
-          {/* Golden Seal of Union */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.8 }}
-            className="mt-6 flex items-center justify-center"
-          >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#C5A059]/50 bg-[#F8F0E3] shadow-inner text-[#800F2F] text-[10px] font-cinzel tracking-widest uppercase">
-              <span>✦</span>
-              <span>The View Gir Resort</span>
-              <span>✦</span>
-            </div>
-          </motion.div>
-
         </div>
+
+        {/* Bottom Section (Floating cleanly above the lotus agni kund base) */}
+        <div className="relative z-10 flex flex-col items-center text-center mb-1">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#D4AF37] bg-[#590D22]/90 shadow-xl text-[#FFF4D4] text-[10px] sm:text-[11px] font-cinzel font-bold tracking-widest uppercase">
+            <span>✦</span>
+            <span>The View Gir Resort</span>
+            <span>✦</span>
+          </div>
+        </div>
+
       </motion.div>
     </section>
   );
 }
-

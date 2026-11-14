@@ -135,7 +135,7 @@ export default function CountdownTimer() {
               THE CELEBRATION HAS BEGUN!
             </h3>
             <p className="text-xs font-cinzel tracking-wider text-[#8C6A28] mt-1">
-              Blessings & Joy to Daksh & Isha
+              Blessings & Joy On This Auspicious Union
             </p>
           </div>
         )}

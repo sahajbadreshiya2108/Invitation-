@@ -4,11 +4,8 @@ import React, { useState, useEffect } from "react";
 import EnvelopeIntro from "@/components/EnvelopeIntro";
 import WeddingEntrance from "@/components/WeddingEntrance";
 import BeautifulBeginning from "@/components/BeautifulBeginning";
-import ScratchRevealDate from "@/components/ScratchRevealDate";
-import CountdownTimer from "@/components/CountdownTimer";
 import CelebrationEvents from "@/components/CelebrationEvents";
 import WeddingVenue from "@/components/WeddingVenue";
-import FamilyDetails from "@/components/FamilyDetails";
 import ThankYouSection from "@/components/ThankYouSection";
 import PetalsCanvas from "@/components/PetalsCanvas";
 import AudioController from "@/components/AudioController";
@@ -51,10 +48,10 @@ export default function Home() {
       {/* Floating Audio Controller (Mute / Unmute & Live Visualizer) */}
       <AudioController autoStartTrigger={isEnvelopeOpened} />
 
-      {/* Centered Mobile-First Experience Container */}
+      {/* Centered Mobile-First Experience Container - 6 Pristine Royal Wedding Pages */}
       <div className="w-full mx-auto flex flex-col items-center">
         
-        {/* 1. First Screen: Interactive 3D Luxury Envelope Opening */}
+        {/* 1. Page 1: Royal Palace Gates 3D Door Opening & Radha-Krishna Divine Blessing */}
         <div id="envelope-section" className="w-full">
           <EnvelopeIntro
             key={envelopeKey}
@@ -63,28 +60,19 @@ export default function Home() {
           />
         </div>
 
-        {/* 2. Cinematic Wedding Entrance Section */}
+        {/* 2. Page 2: Royal Wedding Mandap Invitation (Daksh & Isha Announcement) */}
         <WeddingEntrance />
 
-        {/* 3. A Beautiful Beginning – Couple Introduction */}
+        {/* 3. Page 3: "The Beginning" Calligraphy & Romantic Story */}
         <BeautifulBeginning />
 
-        {/* 4. Interactive Scratch-to-Reveal Wedding Date */}
-        <ScratchRevealDate />
-
-        {/* 5. Live Wedding Countdown to 1 Dec 2026, 08:30 AM IST */}
-        <CountdownTimer />
-
-        {/* 6. Wedding Celebration Events Timeline */}
+        {/* 4. Page 4: Auspicious Wedding Ceremonies Schedule + Live Countdown */}
         <CelebrationEvents />
 
-        {/* 7. Wedding Venue (ATM Farm House, Gujarat) with Directions */}
+        {/* 5. Page 5: Wedding Venue (The View Gir Resort, Sasan Gir) & Google Maps Link */}
         <WeddingVenue />
 
-        {/* 8. Family Details & Blessings (Mungara Family) */}
-        <FamilyDetails />
-
-        {/* 9. Final Thank You Section with Replay Button */}
+        {/* 6. Page 6: Family Blessings (Mungara Family) & Warm Gratitude Finale */}
         <ThankYouSection onReplay={handleReplayInvitation} />
 
       </div>

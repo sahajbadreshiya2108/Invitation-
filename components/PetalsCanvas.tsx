@@ -37,7 +37,7 @@ export default function PetalsCanvas() {
 
     window.addEventListener("resize", handleResize);
 
-    const petalsCount = window.innerWidth < 768 ? 22 : 36;
+    const petalsCount = window.innerWidth < 768 ? 12 : 20;
     const petals: Petal[] = [];
 
     const types: ("burgundy" | "rose" | "gold")[] = [

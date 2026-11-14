@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { GaneshaIcon, RoyalCornerOrnament, MandalaRosette, DILogo } from "./DecorativeSVGs";
 import confetti from "canvas-confetti";
-import { Sparkles, ChevronDown } from "lucide-react";
+import { Play, Pause, Volume2, VolumeX, Sparkles, ChevronDown, RotateCcw } from "lucide-react";
 
 interface EnvelopeIntroProps {
   onOpen: () => void;
@@ -12,35 +11,80 @@ interface EnvelopeIntroProps {
 }
 
 export default function EnvelopeIntro({ onOpen, isOpen }: EnvelopeIntroProps) {
-  const [stage, setStage] = useState<"closed" | "opening" | "cardRevealed" | "done">("closed");
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [hasStarted, setHasStarted] = useState(false);
+  const [isEnded, setIsEnded] = useState(false);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  const handleTapToOpen = () => {
-    if (stage !== "closed") return;
+  const handleStartPlay = () => {
+    if (!videoRef.current) return;
 
-    setStage("opening");
-    onOpen();
+    videoRef.current.muted = false;
+    setIsMuted(false);
 
-    // Trigger golden sparkles
-    confetti({
-      particleCount: 50,
-      spread: 70,
-      origin: { y: 0.6 },
-      colors: ["#C5A059", "#DFB76C", "#FFF9EF", "#800F2F"],
-    });
+    videoRef.current
+      .play()
+      .then(() => {
+        setIsPlaying(true);
+        setHasStarted(true);
+        setIsEnded(false);
+        onOpen();
 
-    // Flap opens -> card slides up
-    setTimeout(() => {
-      setStage("cardRevealed");
-    }, 900);
+        // Pause background audio while video plays
+        window.dispatchEvent(new CustomEvent("wedding-video-playing"));
 
-    // Transition smoothly to invitation body
-    setTimeout(() => {
-      setStage("done");
-      const entranceEl = document.getElementById("wedding-entrance");
-      if (entranceEl) {
-        entranceEl.scrollIntoView({ behavior: "smooth" });
-      }
-    }, 2400);
+        // Burst celebration confetti
+        confetti({
+          particleCount: 80,
+          spread: 90,
+          origin: { y: 0.6 },
+          colors: ["#D4AF37", "#F3E5AB", "#FFF9EF", "#800020", "#E6C280"],
+        });
+      })
+      .catch(() => {
+        // Fallback with muted if browser autoplay blocked audio
+        if (videoRef.current) {
+          videoRef.current.muted = true;
+          setIsMuted(true);
+          videoRef.current.play();
+          setIsPlaying(true);
+          setHasStarted(true);
+        }
+      });
+  };
+
+  const handleTogglePlay = () => {
+    if (!videoRef.current) return;
+
+    if (isPlaying) {
+      videoRef.current.pause();
+      setIsPlaying(false);
+      window.dispatchEvent(new CustomEvent("wedding-video-paused"));
+    } else {
+      videoRef.current.play();
+      setIsPlaying(true);
+      window.dispatchEvent(new CustomEvent("wedding-video-playing"));
+    }
+  };
+
+  const handleToggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!videoRef.current) return;
+
+    videoRef.current.muted = !isMuted;
+    setIsMuted(!isMuted);
+  };
+
+  const handleReplayVideo = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!videoRef.current) return;
+
+    videoRef.current.currentTime = 0;
+    videoRef.current.play();
+    setIsPlaying(true);
+    setIsEnded(false);
+    window.dispatchEvent(new CustomEvent("wedding-video-playing"));
   };
 
   const handleScrollDown = () => {
@@ -50,298 +94,179 @@ export default function EnvelopeIntro({ onOpen, isOpen }: EnvelopeIntroProps) {
     }
   };
 
-  return (
-    <div className="relative w-full min-h-screen flex flex-col items-center justify-center p-4 py-8 overflow-hidden bg-radial from-[#3b0816] via-[#20040c] to-[#0d0105]">
-      {/* Background Ambient Glow & Floral Watermark */}
-      <div className="absolute inset-0 pointer-events-none opacity-20 bg-[radial-gradient(#c5a059_1px,transparent_1px)] [background-size:24px_24px]" />
-      
-      {/* Subtle Floating Lighting Orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[340px] sm:w-[500px] h-[340px] sm:h-[500px] bg-[#800f2f]/25 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-10 w-[280px] h-[280px] bg-[#c5a059]/15 rounded-full blur-[90px] pointer-events-none" />
+  useEffect(() => {
+    const vid = videoRef.current;
+    if (!vid) return;
 
-      {/* Main Interactive Envelope Container with 3D Perspective */}
-      <div className="relative z-30 w-full max-w-[390px] sm:max-w-[430px] perspective-container flex flex-col items-center">
+    const onEnd = () => {
+      setIsPlaying(false);
+      setIsEnded(true);
+      window.dispatchEvent(new CustomEvent("wedding-video-paused"));
+    };
+
+    vid.addEventListener("ended", onEnd);
+    return () => {
+      vid.removeEventListener("ended", onEnd);
+    };
+  }, []);
+
+  return (
+    <div className="relative w-full min-h-screen flex flex-col items-center justify-center p-3 sm:p-4 py-8 overflow-hidden bg-gradient-to-b from-[#1b0309] via-[#2a0612] to-[#120206]">
+      {/* Background Subtle Golden Radiance */}
+      <div className="absolute inset-0 pointer-events-none opacity-25 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px]" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[340px] sm:w-[500px] h-[340px] sm:h-[500px] bg-[#800F2F]/25 rounded-full blur-[100px] pointer-events-none" />
+
+      {/* Main Container */}
+      <div className="relative z-30 w-full max-w-[390px] sm:max-w-[420px] flex flex-col items-center">
         
-        {/* Envelope Top Hint (Tap To Open) */}
+        {/* Top Header Badge */}
         <motion.div
           initial={{ opacity: 0, y: -15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="mb-5 text-center"
+          transition={{ duration: 0.8 }}
+          className="mb-3 text-center"
         >
-          <span className="text-[11px] sm:text-xs font-cinzel tracking-[0.28em] text-[#DFB76C] uppercase font-semibold flex items-center justify-center gap-2">
-            <Sparkles className="w-3.5 h-3.5 text-[#DFB76C] animate-pulse" />
-            WEDDING INVITATION
-            <Sparkles className="w-3.5 h-3.5 text-[#DFB76C] animate-pulse" />
-          </span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#4A0818]/95 via-[#6B0D24]/95 to-[#4A0818]/95 border border-[#D4AF37] shadow-xl">
+            <Sparkles className="w-3.5 h-3.5 text-[#F3E5AB] animate-pulse" />
+            <span className="text-xs sm:text-sm font-royal font-bold tracking-[0.25em] text-[#FFF4D4] uppercase">
+              ॥ शुभ विवाह निमंत्रण ॥
+            </span>
+            <Sparkles className="w-3.5 h-3.5 text-[#F3E5AB] animate-pulse" />
+          </div>
         </motion.div>
 
-        {/* 3D Envelope Wrapper */}
-        <div
-          onClick={handleTapToOpen}
-          className={`relative w-full aspect-[4/5.4] max-h-[580px] cursor-pointer select-none transition-transform duration-500 ${
-            stage === "closed" ? "hover:scale-[1.02] active:scale-[0.98]" : ""
-          }`}
+        {/* The Wedding Video Card (Page 1) */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, delay: 0.2 }}
+          className="relative w-full aspect-[9/16] max-h-[720px] rounded-3xl border-2 border-[#D4AF37] shadow-[0_30px_70px_-15px_rgba(0,0,0,0.95)] overflow-hidden bg-black select-none"
         >
-          {/* Outer Gold Shadow Box */}
-          <div className="absolute -inset-1 rounded-2xl bg-gradient-to-b from-[#DFB76C]/40 via-[#800F2F]/30 to-[#C5A059]/40 blur-md opacity-70" />
+          {/* Video Player */}
+          <video
+            ref={videoRef}
+            src="/wedding-intro.mp4"
+            playsInline
+            preload="metadata"
+            className="w-full h-full object-cover cursor-pointer"
+            onClick={hasStarted ? handleTogglePlay : handleStartPlay}
+          />
 
-          {/* Envelope Body Container */}
-          <div className="relative w-full h-full rounded-2xl bg-[#590D22] border-2 border-[#C5A059]/70 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.85)] overflow-hidden preserve-3d">
-            
-            {/* Background Texture & Laser Cut Cream Filigree (Inspired by reference image 3) */}
-            <div className="absolute inset-0 bg-[#420818] opacity-90" />
-            <div className="absolute inset-0 bg-[radial-gradient(#C5A059_0.8px,transparent_0.8px)] [background-size:16px_16px] opacity-15" />
-
-            {/* Laser Cut Cream Wings / Flaps (Left & Right Ornate Embossed Panels) */}
-            <div className="absolute top-0 bottom-0 left-0 w-16 sm:w-20 bg-gradient-to-r from-[#FFF9EF] via-[#F8F0E3] to-[#ebdcc2] opacity-90 border-r border-[#C5A059]/40 shadow-xl overflow-hidden pointer-events-none">
-              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#800F2F_1px,transparent_1px)] [background-size:10px_10px]" />
-              <div className="absolute -top-6 -left-6 w-24 h-24 text-[#C5A059]/40">
-                <MandalaRosette className="w-full h-full" />
-              </div>
-              <div className="absolute -bottom-6 -left-6 w-24 h-24 text-[#C5A059]/40">
-                <MandalaRosette className="w-full h-full" />
-              </div>
-            </div>
-
-            <div className="absolute top-0 bottom-0 right-0 w-16 sm:w-20 bg-gradient-to-l from-[#FFF9EF] via-[#F8F0E3] to-[#ebdcc2] opacity-90 border-l border-[#C5A059]/40 shadow-xl overflow-hidden pointer-events-none">
-              <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#800F2F_1px,transparent_1px)] [background-size:10px_10px]" />
-              <div className="absolute -top-6 -right-6 w-24 h-24 text-[#C5A059]/40">
-                <MandalaRosette className="w-full h-full" />
-              </div>
-              <div className="absolute -bottom-6 -right-6 w-24 h-24 text-[#C5A059]/40">
-                <MandalaRosette className="w-full h-full" />
-              </div>
-            </div>
-
-            {/* Corner Ornaments */}
-            <div className="absolute top-2 left-2 z-10 pointer-events-none opacity-80">
-              <RoyalCornerOrnament className="w-12 h-12" />
-            </div>
-            <div className="absolute top-2 right-2 z-10 pointer-events-none opacity-80 rotate-90">
-              <RoyalCornerOrnament className="w-12 h-12" />
-            </div>
-            <div className="absolute bottom-2 left-2 z-10 pointer-events-none opacity-80 -rotate-90">
-              <RoyalCornerOrnament className="w-12 h-12" />
-            </div>
-            <div className="absolute bottom-2 right-2 z-10 pointer-events-none opacity-80 rotate-180">
-              <RoyalCornerOrnament className="w-12 h-12" />
-            </div>
-
-            {/* ========================================================= */}
-            {/* INVITATION CARD (EMERGING FROM INSIDE IN 3D) */}
-            {/* ========================================================= */}
-            <motion.div
-              initial={false}
-              animate={
-                stage === "cardRevealed" || stage === "done"
-                  ? {
-                      y: -140,
-                      scale: 1.03,
-                      rotateX: 0,
-                      boxShadow: "0 30px 60px -15px rgba(0,0,0,0.9)",
-                    }
-                  : {
-                      y: 0,
-                      scale: 0.98,
-                      rotateX: 4,
-                      boxShadow: "0 10px 25px rgba(0,0,0,0.5)",
-                    }
-              }
-              transition={{
-                duration: 1.2,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className="absolute inset-x-5 top-8 bottom-8 z-20 rounded-xl bg-gradient-to-b from-[#FFFDF9] via-[#F8F0E3] to-[#F1E4CD] border-2 border-[#C5A059] p-5 flex flex-col items-center justify-between shadow-2xl text-[#38251F] text-center"
+          {/* Floating Sound Toggle Button (Visible when playing) */}
+          {hasStarted && !isEnded && (
+            <button
+              onClick={handleToggleMute}
+              className="absolute top-4 right-4 z-40 p-2.5 rounded-full bg-[#1b0309]/80 border border-[#D4AF37]/70 text-[#F3E5AB] shadow-lg backdrop-blur-xs hover:scale-105 active:scale-95 transition-all"
+              aria-label={isMuted ? "Unmute" : "Mute"}
             >
-              {/* Card Inner Border */}
-              <div className="absolute inset-1.5 rounded-lg border border-[#C5A059]/60 pointer-events-none" />
-              <div className="absolute inset-2.5 rounded-md border border-dashed border-[#DFB76C]/40 pointer-events-none" />
-
-              {/* Card Top Details */}
-              <div className="relative z-10 flex flex-col items-center mt-1">
-                <GaneshaIcon className="w-10 h-10 mb-1" />
-                <span className="text-[9px] font-cinzel tracking-[0.25em] text-[#800F2F] font-bold uppercase">
-                  || ॐ श्री गणेशाय नमः ||
-                </span>
-                <span className="text-[10px] font-cinzel tracking-[0.2em] text-[#8C6A28] uppercase mt-1">
-                  You Are Cordially Invited
-                </span>
-              </div>
-
-              {/* Card Couple Names */}
-              <div className="relative z-10 my-auto py-2">
-                <span className="text-[10px] font-cinzel tracking-[0.3em] text-[#590D22]/80 uppercase block mb-1">
-                  The Royal Wedding Of
-                </span>
-                <h1 className="font-calligraphy text-4xl sm:text-5xl text-[#590D22] drop-shadow-sm leading-tight">
-                  Daksh
-                </h1>
-                <div className="flex items-center justify-center gap-2 my-0.5">
-                  <div className="w-8 h-[1px] bg-[#C5A059]" />
-                  <span className="font-calligraphy text-2xl text-[#C5A059]">&</span>
-                  <div className="w-8 h-[1px] bg-[#C5A059]" />
-                </div>
-                <h1 className="font-calligraphy text-4xl sm:text-5xl text-[#590D22] drop-shadow-sm leading-tight">
-                  Isha
-                </h1>
-              </div>
-
-              {/* Card Bottom Details */}
-              <div className="relative z-10 flex flex-col items-center mb-1">
-                <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-[#C5A059] to-transparent mb-1" />
-                <span className="text-[10px] font-cinzel tracking-[0.22em] text-[#800F2F] font-semibold uppercase">
-                  1 & 2 December 2026
-                </span>
-                <span className="text-[9px] font-body text-[#38251F]/80 tracking-wider">
-                  The View Gir Resort
-                </span>
-              </div>
-            </motion.div>
-
-            {/* ========================================================= */}
-            {/* ENVELOPE 3D FOLDABLE FLAP (OPENS BACKWARDS) */}
-            {/* ========================================================= */}
-            <motion.div
-              initial={false}
-              animate={
-                stage === "closed"
-                  ? { rotateX: 0 }
-                  : { rotateX: -180 }
-              }
-              transition={{
-                duration: 0.9,
-                ease: [0.4, 0, 0.2, 1],
-              }}
-              style={{
-                transformOrigin: "top center",
-              }}
-              className="absolute top-0 inset-x-0 h-1/2 z-30 preserve-3d"
-            >
-              {/* Flap Outer Face (Burgundy Triangle with Gold Trim) */}
-              <div className="absolute inset-0 backface-hidden flex flex-col items-center">
-                <svg
-                  viewBox="0 0 400 240"
-                  className="w-full h-full drop-shadow-[0_12px_15px_rgba(0,0,0,0.6)]"
-                  preserveAspectRatio="none"
-                >
-                  <defs>
-                    <linearGradient id="flapGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="#75112B" />
-                      <stop offset="60%" stopColor="#590D22" />
-                      <stop offset="100%" stopColor="#3d0514" />
-                    </linearGradient>
-                  </defs>
-                  {/* Flap Triangle */}
-                  <polygon
-                    points="0,0 400,0 200,230"
-                    fill="url(#flapGrad)"
-                    stroke="#C5A059"
-                    strokeWidth="2"
-                  />
-                  {/* Flap Inner Gold Border Lines */}
-                  <polygon
-                    points="15,6 385,6 200,215"
-                    fill="none"
-                    stroke="#DFB76C"
-                    strokeWidth="1"
-                    strokeDasharray="4 2"
-                    opacity="0.8"
-                  />
-                </svg>
-
-                {/* Flap Tip Mandala Rosette */}
-                <div className="absolute top-[165px] left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-                  <div className="w-10 h-10 text-[#FFF2B2]">
-                    <MandalaRosette className="w-full h-full" />
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* ========================================================= */}
-            {/* LUXURY BELLY BAND / WAIST RIBBON & WAX SEAL */}
-            {/* ========================================================= */}
-            <AnimatePresence>
-              {stage === "closed" && (
-                <motion.div
-                  initial={{ opacity: 1, scale: 1 }}
-                  exit={{
-                    opacity: 0,
-                    scale: 1.15,
-                    filter: "blur(6px)",
-                    transition: { duration: 0.6 },
-                  }}
-                  className="absolute inset-x-0 top-1/2 -translate-y-1/2 z-40 flex flex-col items-center justify-center pointer-events-none"
-                >
-                  {/* Golden Belly Band Bar */}
-                  <div className="w-full py-3.5 bg-gradient-to-r from-[#800F2F] via-[#590D22] to-[#800F2F] border-y-2 border-[#C5A059] shadow-2xl relative flex items-center justify-center">
-                    {/* Inner gold line */}
-                    <div className="absolute inset-x-0 top-[2px] h-[1px] bg-[#FFF2B2]/60" />
-                    <div className="absolute inset-x-0 bottom-[2px] h-[1px] bg-[#FFF2B2]/60" />
-
-                    <div className="px-6 py-1 bg-[#3A0514]/90 rounded border border-[#DFB76C]/60 flex flex-col items-center">
-                      <span className="text-[10px] font-cinzel tracking-[0.28em] text-[#DFB76C] font-semibold uppercase">
-                        YOU&apos;RE INVITED
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Pulsing Tap-To-Open Wax Seal Emblem */}
-                  <div className="relative -mt-4 flex flex-col items-center">
-                    <div className="relative flex items-center justify-center w-22 h-22 rounded-full bg-gradient-to-br from-[#800F2F] via-[#590D22] to-[#2B030D] border-2 border-[#DFB76C] shadow-[0_10px_25px_rgba(0,0,0,0.9)] animate-pulse-glow">
-                      <div className="absolute inset-1 rounded-full border border-dashed border-[#FFF2B2]/60" />
-                      
-                      <div className="text-center px-2 flex flex-col items-center justify-center">
-                        <DILogo className="w-10 h-10 text-[#FFF2B2] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]" />
-                        <span className="text-[7px] font-cinzel tracking-widest text-[#FFF9EF] uppercase block mt-0.5 font-bold">
-                          TAP TO OPEN
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Hint Touch Icon */}
-                    <motion.div
-                      animate={{ y: [0, 4, 0] }}
-                      transition={{ repeat: Infinity, duration: 1.5 }}
-                      className="mt-2 text-center"
-                    >
-                      <span className="text-[11px] font-cinzel tracking-[0.2em] text-[#FFF9EF] bg-[#590D22]/90 px-3 py-1 rounded-full border border-[#DFB76C]/50 shadow-md">
-                        ✦ Click or Tap to Open ✦
-                      </span>
-                    </motion.div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-
-            {/* Bottom Pocket Overlay (to hide lower card before it slides up) */}
-            <div className="absolute bottom-0 inset-x-0 h-1/3 z-25 bg-gradient-to-t from-[#400717] via-[#590D22] to-transparent pointer-events-none opacity-80" />
-          </div>
-        </div>
-
-        {/* Post-Opening Scroll Down CTA */}
-        <AnimatePresence>
-          {stage !== "closed" && (
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, duration: 0.8 }}
-              className="mt-8 flex flex-col items-center gap-2 cursor-pointer"
-              onClick={handleScrollDown}
-            >
-              <button
-                className="group relative flex items-center gap-2 rounded-full border border-[#DFB76C] bg-gradient-to-r from-[#590D22] via-[#800F2F] to-[#590D22] px-6 py-2.5 text-xs font-cinzel font-semibold tracking-[0.22em] text-[#FFF9EF] shadow-xl hover:shadow-[0_0_25px_rgba(197,160,89,0.5)] transition-all active:scale-95"
-              >
-                <span>ENTER WEDDING CELEBRATION</span>
-                <ChevronDown className="w-4 h-4 text-[#DFB76C] group-hover:translate-y-0.5 transition-transform" />
-              </button>
-            </motion.div>
+              {isMuted ? <VolumeX className="w-4 h-4 text-red-300" /> : <Volume2 className="w-4 h-4 text-[#F3E5AB]" />}
+            </button>
           )}
-        </AnimatePresence>
+
+          {/* LAYER 1: Initial Play Prompt Overlay (Before Starting) */}
+          <AnimatePresence>
+            {!hasStarted && (
+              <motion.div
+                initial={{ opacity: 1 }}
+                exit={{ opacity: 0, transition: { duration: 0.4 } }}
+                className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6 bg-gradient-to-t from-black/80 via-black/40 to-black/60 cursor-pointer"
+                onClick={handleStartPlay}
+              >
+                {/* Center Glowing Play Button */}
+                <motion.div
+                  animate={{ scale: [1, 1.08, 1] }}
+                  transition={{ repeat: Infinity, duration: 2 }}
+                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-2 border-[#D4AF37] bg-gradient-to-br from-[#800F2F] via-[#590D22] to-[#2B030D] shadow-[0_0_35px_rgba(212,175,55,0.85)] flex items-center justify-center"
+                >
+                  <Play className="w-9 h-9 sm:w-11 sm:h-11 text-[#F3E5AB] fill-[#F3E5AB] translate-x-1 drop-shadow-md" />
+                </motion.div>
+
+                {/* Call to Action */}
+                <motion.div
+                  animate={{ y: [0, -3, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.8 }}
+                  className="mt-6 text-center"
+                >
+                  <span className="text-xs sm:text-sm font-cinzel font-bold tracking-[0.22em] text-[#FFF9EF] bg-gradient-to-r from-[#590D22]/95 via-[#800F2F]/95 to-[#590D22]/95 px-5 py-2.5 rounded-full border-2 border-[#D4AF37] shadow-[0_12px_28px_rgba(0,0,0,0.9)] inline-flex items-center gap-2 hover:scale-105 active:scale-95 transition-transform">
+                    <Sparkles className="w-3.5 h-3.5 text-[#F3E5AB] animate-pulse" />
+                    TAP TO WATCH INVITATION
+                    <Sparkles className="w-3.5 h-3.5 text-[#F3E5AB] animate-pulse" />
+                  </span>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* LAYER 2: Video Ended Overlay (Replay & Next) */}
+          <AnimatePresence>
+            {isEnded && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 z-30 flex flex-col items-center justify-center p-6 bg-black/75 backdrop-blur-xs text-center"
+              >
+                <div className="space-y-4 flex flex-col items-center">
+                  <div className="px-4 py-1 rounded-full bg-[#590D22] border border-[#D4AF37] shadow-md">
+                    <span className="text-xs font-royal font-bold tracking-[0.25em] text-[#FFF4D4] uppercase">
+                      ॥ शुभ विवाह ॥
+                    </span>
+                  </div>
+
+                  <h3 className="font-royal text-2xl sm:text-3xl font-bold text-[#FFF9EF] tracking-wide">
+                    Daksh &amp; Isha
+                  </h3>
+
+                  <div className="flex flex-col gap-3 w-full max-w-[260px] pt-2">
+                    <button
+                      onClick={handleScrollDown}
+                      className="w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#590D22] via-[#800F2F] to-[#590D22] border-2 border-[#D4AF37] text-xs font-cinzel font-bold tracking-[0.2em] text-[#FFF4D4] shadow-xl hover:scale-105 active:scale-95 transition-all animate-bounce"
+                    >
+                      <span>VIEW WEDDING DETAILS</span>
+                      <ChevronDown className="w-4 h-4 text-[#D4AF37]" />
+                    </button>
+
+                    <button
+                      onClick={handleReplayVideo}
+                      className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-[#D4AF37]/50 text-xs font-cinzel tracking-wider text-[#F3E5AB] hover:bg-white/20 transition-all"
+                    >
+                      <RotateCcw className="w-3.5 h-3.5" />
+                      <span>Watch Again</span>
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Pause Indicator overlay on tap */}
+          {hasStarted && !isPlaying && !isEnded && (
+            <div 
+              onClick={handleTogglePlay}
+              className="absolute inset-0 z-30 flex items-center justify-center bg-black/35 cursor-pointer"
+            >
+              <div className="w-16 h-16 rounded-full bg-black/60 border border-[#D4AF37] flex items-center justify-center text-[#F3E5AB] shadow-xl">
+                <Play className="w-8 h-8 fill-[#F3E5AB] translate-x-0.5" />
+              </div>
+            </div>
+          )}
+        </motion.div>
+
+        {/* Scroll CTA Button below the video card */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+          className="mt-5 flex flex-col items-center cursor-pointer"
+          onClick={handleScrollDown}
+        >
+          <button className="group relative flex items-center gap-2 rounded-full border-2 border-[#D4AF37] bg-gradient-to-r from-[#590D22] via-[#800F2F] to-[#590D22] px-6 py-2.5 text-xs font-cinzel font-bold tracking-[0.22em] text-[#FFF9EF] shadow-xl hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] transition-all active:scale-95">
+            <span>ENTER WEDDING CELEBRATION</span>
+            <ChevronDown className="w-4 h-4 text-[#D4AF37] group-hover:translate-y-0.5 transition-transform" />
+          </button>
+        </motion.div>
 
       </div>
     </div>
   );
 }
-

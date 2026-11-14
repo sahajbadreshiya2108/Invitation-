@@ -12,10 +12,10 @@ export default function AudioController({ autoStartTrigger = false }: AudioContr
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    // Initialize audio element with uploaded wedding song
+    // Initialize audio element with uploaded wedding song (lazy load on user interaction)
     const audio = new Audio("/wedding-song.m4a");
     audio.loop = true;
-    audio.preload = "auto";
+    audio.preload = "none";
     audioRef.current = audio;
 
     const onPlay = () => setIsPlaying(true);
@@ -24,9 +24,23 @@ export default function AudioController({ autoStartTrigger = false }: AudioContr
     audio.addEventListener("play", onPlay);
     audio.addEventListener("pause", onPause);
 
+    const onVideoPlay = () => {
+      audio.pause();
+      setIsPlaying(false);
+    };
+
+    const onVideoPause = () => {
+      // Optional: don't automatically resume unless user gestures
+    };
+
+    window.addEventListener("wedding-video-playing", onVideoPlay);
+    window.addEventListener("wedding-video-paused", onVideoPause);
+
     return () => {
       audio.removeEventListener("play", onPlay);
       audio.removeEventListener("pause", onPause);
+      window.removeEventListener("wedding-video-playing", onVideoPlay);
+      window.removeEventListener("wedding-video-paused", onVideoPause);
       audio.pause();
       audioRef.current = null;
     };

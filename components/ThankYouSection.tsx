@@ -87,26 +87,34 @@ export default function ThankYouSection({ onReplay }: ThankYouSectionProps) {
 
           {/* With Love and Blessings */}
           <div className="space-y-2 my-2">
-            <span className="text-xs font-cinzel tracking-[0.28em] text-[#800F2F] uppercase font-semibold block">
-              WITH LOVE AND BLESSINGS
-            </span>
+            <div className="my-2 text-center">
+              <span className="text-[10px] font-cinzel tracking-[0.25em] text-[#8C6A28] uppercase block">
+                WITH THE BLESSINGS OF
+              </span>
+              <p className="text-[10.5px] font-cinzel tracking-[0.2em] text-[#800F2F] uppercase font-semibold mt-1">
+                Respected Father &amp; Mother
+              </p>
+              <h4 className="font-royal text-lg sm:text-xl font-bold text-[#590D22] mt-0.5">
+                Kiritbhai &amp; Rekhaben Mungara
+              </h4>
+            </div>
 
             <div className="my-3 flex flex-col items-center">
               <div className="w-16 h-16 rounded-full bg-[#F8F0E3] border border-[#C5A059] p-2 flex items-center justify-center mb-2 shadow-inner">
                 <DILogo className="w-full h-full text-[#800F2F]" />
               </div>
-              <h1 className="font-calligraphy text-4xl sm:text-5xl text-[#590D22] drop-shadow-sm">
-                Daksh & Isha
-              </h1>
             </div>
 
-            <div className="pt-2">
+            <div className="pt-1">
               <span className="text-[11px] font-cinzel tracking-[0.22em] text-[#8C6A28] uppercase block">
-                AND THE ENTIRE
+                WARMLY WELCOMED BY
               </span>
               <h4 className="font-royal text-xl sm:text-2xl font-extrabold tracking-[0.2em] text-[#590D22] uppercase mt-0.5">
                 MUNGARA FAMILY
               </h4>
+              <p className="font-cormorant text-sm text-[#38251F]/80 italic mt-1">
+                &amp; Relatives, Friends, and Well-Wishers
+              </p>
             </div>
           </div>
 

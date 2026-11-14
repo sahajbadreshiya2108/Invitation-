@@ -2,8 +2,9 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { FloralDivider, MandalaRosette, RoyalCornerOrnament, DILogo } from "./DecorativeSVGs";
+import { FloralDivider, MandalaRosette, RoyalCornerOrnament } from "./DecorativeSVGs";
 import { Heart } from "lucide-react";
+import Image from "next/image";
 
 export default function BeautifulBeginning() {
   return (
@@ -47,7 +48,7 @@ export default function BeautifulBeginning() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#C5A059]/40 bg-[#800F2F]/40 mb-4"
+          className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#C5A059]/40 bg-[#800F2F]/40 mb-3"
         >
           <Heart className="w-3 h-3 text-[#DFB76C] fill-[#DFB76C]/40" />
           <span className="text-[10px] font-cinzel tracking-[0.25em] text-[#FFF2B2] uppercase font-semibold">
@@ -56,24 +57,23 @@ export default function BeautifulBeginning() {
           <Heart className="w-3 h-3 text-[#DFB76C] fill-[#DFB76C]/40" />
         </motion.div>
 
-        {/* Heading */}
-        <h2 className="font-royal text-2xl sm:text-3xl font-bold tracking-[0.15em] text-[#FFF9EF] uppercase drop-shadow-md">
-          A BEAUTIFUL BEGINNING
-        </h2>
+        {/* The Beginning Calligraphy Artwork (Replaces old text, divider & logo) */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.92 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="my-3 sm:my-5 flex items-center justify-center"
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/the-beginning-gold.png"
+            alt="The Beginning"
+            className="w-60 sm:w-68 h-auto object-contain drop-shadow-[0_4px_18px_rgba(223,183,108,0.45)] hover:scale-102 transition-transform duration-500"
+          />
+        </motion.div>
 
-        <FloralDivider className="my-5" />
-
-        {/* Monogram Crest */}
-        <div className="my-6 relative flex items-center justify-center">
-          <div className="relative w-28 h-28 rounded-full border-2 border-[#DFB76C] bg-gradient-to-br from-[#800F2F] via-[#590D22] to-[#2B040F] flex items-center justify-center shadow-[0_10px_30px_rgba(0,0,0,0.8)] p-3">
-            <div className="absolute inset-1.5 rounded-full border border-dashed border-[#FFF2B2]/60" />
-            <div className="relative z-10 w-full h-full flex items-center justify-center">
-              <DILogo className="w-14 h-14 text-[#FFF2B2] drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" />
-            </div>
-          </div>
-          {/* Subtle Outer Glow Ring */}
-          <div className="absolute w-32 h-32 rounded-full border border-[#DFB76C]/30 animate-pulse pointer-events-none" />
-        </div>
+        <FloralDivider className="my-5 opacity-80" />
 
         {/* Description Text */}
         <div className="space-y-4 px-2 sm:px-4">
@@ -86,9 +86,9 @@ export default function BeautifulBeginning() {
           </p>
         </div>
 
-        <FloralDivider className="my-6" />
+        <FloralDivider className="my-6 opacity-80" />
 
-        {/* Couple Signature Name */}
+        {/* Couple Signature */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -96,8 +96,8 @@ export default function BeautifulBeginning() {
           transition={{ duration: 0.8 }}
           className="mt-2"
         >
-          <span className="font-calligraphy text-3xl sm:text-4xl text-[#FFF2B2] tracking-wider drop-shadow-md">
-            Daksh & Isha
+          <span className="font-royal text-xl sm:text-2xl text-[#FFF2B2] tracking-[0.2em] font-semibold uppercase drop-shadow-md">
+            A LIFETIME OF TOGETHERNESS
           </span>
           <p className="text-[10px] font-cinzel tracking-[0.25em] text-[#DFB76C]/80 uppercase mt-2">
             Beginning Our Forever
