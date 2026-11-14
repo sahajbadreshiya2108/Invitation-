@@ -118,7 +118,7 @@ export default function CelebrationEvents() {
   };
 
   return (
-    <section className="relative w-full py-20 px-4 flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-[#1c040c] via-[#2d0613] to-[#1c040c]">
+    <section className="relative w-full py-4 sm:py-6 px-3 sm:px-4 flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-[#1c040c] via-[#2d0613] to-[#1c040c]">
       {/* Background Mandala */}
       <div className="absolute top-1/3 right-0 translate-x-1/2 w-96 h-96 opacity-10 text-[#C5A059] pointer-events-none">
         <MandalaRosette className="w-full h-full" />

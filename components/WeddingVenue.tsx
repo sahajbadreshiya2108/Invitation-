@@ -18,7 +18,7 @@ export default function WeddingVenue() {
   };
 
   return (
-    <section className="relative w-full py-20 px-4 flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-[#1c040c] via-[#2a040e] to-[#1c040c]">
+    <section className="relative w-full py-4 sm:py-6 px-3 sm:px-4 flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-[#1c040c] via-[#2a040e] to-[#1c040c]">
       {/* Background Ambient Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[500px] h-[340px] bg-[#800F2F]/20 rounded-full blur-[100px] pointer-events-none" />
 

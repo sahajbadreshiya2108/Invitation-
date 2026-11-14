@@ -8,7 +8,7 @@ import Image from "next/image";
 
 export default function BeautifulBeginning() {
   return (
-    <section className="relative w-full py-24 px-4 flex flex-col items-center justify-center overflow-hidden bg-[#1c040c]">
+    <section className="relative w-full py-4 sm:py-6 px-3 sm:px-4 flex flex-col items-center justify-center overflow-hidden bg-[#1c040c]">
       {/* Background Mandala Watermark */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[480px] h-[480px] pointer-events-none opacity-10 text-[#C5A059]">
         <MandalaRosette className="w-full h-full animate-[spin_120s_linear_infinite]" />

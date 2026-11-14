@@ -8,7 +8,7 @@ export default function WeddingEntrance() {
   return (
     <section
       id="wedding-entrance"
-      className="relative min-h-screen w-full flex items-center justify-center py-16 px-3 sm:px-4 overflow-hidden bg-gradient-to-b from-[#180309] via-[#280511] to-[#140207]"
+      className="relative w-full flex items-center justify-center py-4 sm:py-6 px-3 sm:px-4 overflow-hidden bg-gradient-to-b from-[#180309] via-[#280511] to-[#140207]"
     >
       {/* Soft Ambient Radiance */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] sm:w-[550px] h-[340px] sm:h-[550px] bg-[#800F2F]/20 rounded-full blur-[120px] pointer-events-none" />

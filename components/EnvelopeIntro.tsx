@@ -44,7 +44,7 @@ export default function EnvelopeIntro({ onOpen, isOpen }: EnvelopeIntroProps) {
   };
 
   return (
-    <div className="relative w-full min-h-screen flex flex-col items-center justify-center p-3 sm:p-4 py-8 overflow-hidden bg-gradient-to-b from-[#1b0309] via-[#2a0612] to-[#120206]">
+    <div className="relative w-full min-h-[100dvh] flex flex-col items-center justify-center p-3 sm:p-4 pt-4 pb-4 sm:pt-6 sm:pb-6 overflow-hidden bg-gradient-to-b from-[#1b0309] via-[#2a0612] to-[#120206]">
       {/* Background Subtle Golden Radiance */}
       <div className="absolute inset-0 pointer-events-none opacity-25 bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px]" />
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[340px] sm:w-[500px] h-[340px] sm:h-[500px] bg-[#800F2F]/25 rounded-full blur-[100px] pointer-events-none" />

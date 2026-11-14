@@ -27,7 +27,7 @@ export default function ThankYouSection({ onReplay }: ThankYouSectionProps) {
   };
 
   return (
-    <section className="relative w-full py-24 px-4 flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-[#1c040c] via-[#2f0614] to-[#120207]">
+    <section className="relative w-full py-4 sm:py-6 pb-12 sm:pb-16 px-3 sm:px-4 flex flex-col items-center justify-center overflow-hidden bg-gradient-to-b from-[#1c040c] via-[#2f0614] to-[#120207]">
       {/* Background Mandala */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] opacity-10 text-[#C5A059] pointer-events-none">
         <MandalaRosette className="w-full h-full" />
