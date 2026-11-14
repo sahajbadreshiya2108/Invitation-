@@ -24,23 +24,9 @@ export default function AudioController({ autoStartTrigger = false }: AudioContr
     audio.addEventListener("play", onPlay);
     audio.addEventListener("pause", onPause);
 
-    const onVideoPlay = () => {
-      audio.pause();
-      setIsPlaying(false);
-    };
-
-    const onVideoPause = () => {
-      // Optional: don't automatically resume unless user gestures
-    };
-
-    window.addEventListener("wedding-video-playing", onVideoPlay);
-    window.addEventListener("wedding-video-paused", onVideoPause);
-
     return () => {
       audio.removeEventListener("play", onPlay);
       audio.removeEventListener("pause", onPause);
-      window.removeEventListener("wedding-video-playing", onVideoPlay);
-      window.removeEventListener("wedding-video-paused", onVideoPause);
       audio.pause();
       audioRef.current = null;
     };
